@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+apply from:'version.gradle'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.zwk.xintent"
+        minSdkVersion 28
+        targetSdkVersion 30
+        versionCode appVersionCode
+        versionName appVersionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                output ->
+                    def outputFile = output.outputFile
+                    if (outputFile.name.contains("release") && outputFile.name.endsWith('.apk')) {
+                        outputFileName = new File("../release/", "XIntent-release-${defaultConfig.versionName}.apk");
+                    }
+                    if (outputFile.name.contains("debug") && outputFile.name.endsWith('.apk')) {
+                        outputFileName = new File("../debug/", "XIntent-debug-${defaultConfig.versionName}.apk")
+                    }
+            }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'com.elvishew:xlog:1.10.1'
+    //implementation 'com.google.android.material:material:1.4.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    compileOnly group: 'de.robv.android.xposed', name: 'api', version: '82'
+    compileOnly 'de.robv.android.xposed:api:82:sources'
+}
