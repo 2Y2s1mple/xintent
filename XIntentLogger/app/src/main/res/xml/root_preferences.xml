@@ -1,0 +1,84 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:iconSpaceReserved="false"
+    app:iconSpaceReserved="false">
+
+    <PreferenceCategory
+        android:iconSpaceReserved="false"
+        android:title="Monitor Settings"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="key_startActivity"
+            android:title="Monitor startActivity"
+            app:iconSpaceReserved="false" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:iconSpaceReserved="false"
+            android:key="key_getContentProvider"
+            android:title="Monitor getContentProvider"
+            app:iconSpaceReserved="false" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:iconSpaceReserved="false"
+            android:key="key_sendBroadcast"
+            android:title="Monitor sendBroadcast"
+            app:iconSpaceReserved="false" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:iconSpaceReserved="false"
+            android:key="key_registerReceiver"
+            android:title="Monitor registerReceiver"
+            app:iconSpaceReserved="false" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="key_startService"
+            android:title="Monitor startService"
+            app:iconSpaceReserved="false" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="key_bindService"
+            android:title="Monitor bindService"
+            app:iconSpaceReserved="false" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="key_startProcess"
+            android:title="Monitor Process lifecycle"
+            app:iconSpaceReserved="false" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="key_queryIntent"
+            android:title="Monitor queryIntent"
+            android:summaryOn="Overhead can be considerable."
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Others Settings"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            app:iconSpaceReserved="false"
+            android:key="act_backupConfigs"
+            android:title="Save settings"
+            android:summary="Use current configs for next system reboot" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            android:key="key_persistence"
+            android:summaryOn="ls /data/system/xintent/"
+            android:summaryOff="adb logcat -s 'XIntentLogger'"
+            android:title="Save logs to file" />
+
+        <Preference
+            app:dependency="key_persistence"
+            app:iconSpaceReserved="false"
+            android:key="act_logDump"
+            android:summary="adb pull /sdcard/Android/data/com.zwk.xintent/files/xintent-timestamp.zip"
+            android:title="Archive logs to sdcard" />
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
